@@ -30,7 +30,7 @@ const server = createServer((req, res) => {
     });
 
     req.on("end", () => {
-      const parsedBody = toString(buffer.concat(body));
+      const parsedBody = Buffer.concat(body).toString();
       const message = parsedBody.split("=")[1];
       fs.writeFileSync("message.txt", message);
       console.log(parsedBody);
