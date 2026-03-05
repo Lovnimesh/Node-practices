@@ -1,6 +1,7 @@
 "use strict";
 import express from "express";
 import bodyParser from "body-parser";
+import path from "path";
 
 const app = express();
 
@@ -15,7 +16,7 @@ app.use("/admin", adminRoutes);
 app.use(frontRoutes);
 
 app.use((req, res) => {
-  res.status(404).send("<h1>Page not found</h1>");
+  res.status(404).sendFile(path.resolve("views", "error.html"));
 });
 
 app.listen(3000, "localhost");
