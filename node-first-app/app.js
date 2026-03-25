@@ -10,6 +10,8 @@ import frontRoutes from "./routes/shop.js";
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use(express.static(path.resolve("public")));
+
 // here order of routes matters if we are using the app.use() methods in routes but doesn't matters if we are using app.get() or app.post();
 
 app.use("/admin", adminRoutes);
