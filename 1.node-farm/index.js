@@ -1,6 +1,7 @@
-const fs = require("fs");
-const http = require("http");
-const url = require("url");
+import fs from "fs";
+import http from "http";
+import url from "url";
+import slugify from "slugify";
 
 //////////////////////////////////////////////////////////////////////////////////////
 //Working with files
@@ -41,6 +42,9 @@ const tempProduct = fs.readFileSync(
   "./templates/template-product.html",
   "utf-8",
 );
+
+const slugs = dataObj.map((el) => slugify(el.productName, { lower: true }));
+console.log(slugs);
 
 //Server
 //callback function in createServer will run each time when a request hits the server
