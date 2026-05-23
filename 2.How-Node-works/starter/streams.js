@@ -4,12 +4,30 @@ const fs = require("fs");
 const server = require("http").createServer();
 
 server.on("request", (req, res) => {
-    // solution 1
+    // // solution 1
+    // fs.readFile("test-file.txt", (err, data) => {
+    //     if (err) console.error(err);
+    //     res.end(data);
+    // });
+    // // with this solution the first entire file is loaded to the memory then data will be sent
 
-    fs.readFile("test-file.txt", (err, data) => {
-        if (err) console.error(err);
-        res.end(data);
-    });
+    // solution 2: Streams
+    // const readble = fs.createReadStream("test-file.txt");
+    // readble.on("data", (chunk) => res.write(chunk));
+    // // when no more data is left to read;
+    // readble.on("end", () => {
+    //     res.end();
+    // });
+    // readble.on("error", (err) => {
+    //     console.log(err);
+    //     res.statusCode = 500;
+    //     res.end("File not found");
+    // });
+
+    // solution 3
+    const readable = fs.createReadStream("test-file.txt");
+    readable.pipe(res);
+    // readableSource.pip(writeableDest);
 });
 
 server.listen(8000, "127.0.0.1", () => {
